@@ -3,7 +3,7 @@ using Size = System.Drawing.Size;
 
 namespace CamerasAndWinForms
 {
-    partial class Form1
+    partial class CameraTest
     {
         /// <summary>
         ///  Required designer variable.

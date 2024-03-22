@@ -3,7 +3,7 @@ using OpenCvSharp.Extensions;
 
 namespace CamerasAndWinForms
 {
-    public partial class Form1 : Form
+    public partial class CameraTest : Form
     {
         private const string ImageFolderPath = "./images";
 
@@ -11,7 +11,7 @@ namespace CamerasAndWinForms
         private bool _isCameraRunning;
         private Mat _frame = new();
 
-        public Form1()
+        public CameraTest()
         {
             InitializeComponent();
 
