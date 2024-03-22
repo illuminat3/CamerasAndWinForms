@@ -20,7 +20,7 @@ namespace CamerasAndWinForms
                 Directory.CreateDirectory(ImageFolderPath);
             }
 
-            ComboBox1_Click(new object(), EventArgs.Empty);
+            deviceListBox_Click(new object(), EventArgs.Empty);
             
         }
 
@@ -53,15 +53,15 @@ namespace CamerasAndWinForms
         private void ProcessFrame(object? sender, EventArgs e)
         {
             if (_videoCapture.Read(_frame))
-            {
-                pictureBox1.Image = _frame.ToBitmap();
+            {   
+                videoBox.Image = _frame.ToBitmap();
             }
         }
 
-        private void ComboBox1_Click(object sender, EventArgs e)
+        private void deviceListBox_Click(object sender, EventArgs e)
         {
-            comboBox1.Items.Clear();
-            comboBox1.Items.Add("Select a camera");
+            deviceListBox.Items.Clear();
+            deviceListBox.Items.Add("Select a camera");
             int deviceIndex = 0;
             while (true)
             {
@@ -71,29 +71,29 @@ namespace CamerasAndWinForms
                         break;
 
                     var deviceName = $"Webcam {deviceIndex + 1}";
-                    comboBox1.Items.Add(deviceName);
+                    deviceListBox.Items.Add(deviceName);
                 }
                 deviceIndex++;
             }
 
-            comboBox1.SelectedIndex = 0;
+            deviceListBox.SelectedIndex = 0;
         }
 
         // Call when selecting a new camera
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void deviceListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = comboBox1.SelectedIndex;
+            int index = deviceListBox.SelectedIndex;
             if (index > 0)
             {
                 StartCamera(index - 1);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void takePhotoButton_Click(object sender, EventArgs e)
         {
             if (_isCameraRunning)
             {
-                pictureBox2.Image = _frame.ToBitmap();
+                savedImageBox.Image = _frame.ToBitmap();
                 string filePath = Path.Combine(ImageFolderPath, "test.png");
                 Cv2.ImWrite(filePath, _frame);
             }
