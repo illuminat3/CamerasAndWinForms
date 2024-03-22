@@ -5,6 +5,8 @@ namespace CamerasAndWinForms
 {
     public partial class Form1 : Form
     {
+        private const string ImageFolderPath = "./images";
+
         private VideoCapture _videoCapture = new();
         private bool _isCameraRunning;
         private Mat _frame = new();
@@ -12,7 +14,14 @@ namespace CamerasAndWinForms
         public Form1()
         {
             InitializeComponent();
+
+            if (Directory.Exists(ImageFolderPath) == false)
+            {
+                Directory.CreateDirectory(ImageFolderPath);
+            }
+
             ComboBox1_Click(new object(), EventArgs.Empty);
+            
         }
 
         // Call when a camera is updated, idk what happens when 2 cameras are available
@@ -83,7 +92,11 @@ namespace CamerasAndWinForms
         private void button1_Click(object sender, EventArgs e)
         {
             if (_isCameraRunning)
+            {
                 pictureBox2.Image = _frame.ToBitmap();
+                string filePath = Path.Combine(ImageFolderPath, "test.png");
+                Cv2.ImWrite(filePath, _frame);
+            }
         }
     }
 }
